@@ -1,0 +1,6 @@
+obj*/
+bin*/
+Release*/
+*.suo
+*.csproj.user
+/.vs/EDWoWClient/v15/Server/sqlite3
