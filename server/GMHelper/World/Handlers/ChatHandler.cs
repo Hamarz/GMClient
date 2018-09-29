@@ -48,12 +48,9 @@ namespace GMHelper
             UInt64 receiverGUID = reader.ReadUInt64();
             UInt32 messageLength = reader.ReadUInt32();
 
-            //string vm = reader.ReadString((int)messageLength);
             string message = reader.ReadCString();
-            // we dont care about the tag so we dont read it.
-            // reader.ReadByte();
 
-            OnServerChatMessage?.Invoke(this, new ChatArgs
+            OnChatMessage?.Invoke(this, new ChatArgs
             {
                 Type = type,
                 Message = message,
@@ -74,26 +71,13 @@ namespace GMHelper
             string channelName = null;
             string message;
 
-            Debug.WriteLine($"{type}");
-
-            /*if ((type != ChatType.CHAT_TYPE_CHANNEL && type != ChatType.CHAT_TYPE_WHISPER))
-                language = (Language)reader.ReadUInt32();
-            else
-                language = (Language)reader.ReadUInt32();*/ // What is this, its either way going to be read as language
-
             language = (Language)reader.ReadUInt32();
-
 
             targetGUID = reader.ReadUInt64();
 
             reader.ReadUInt32(); // Some flags
 
-            switch (type)
-            {
-                case ChatType.CHAT_TYPE_CHANNEL:
-                    channelName = reader.ReadCString();
-                    break;
-            }
+            channelName = type == ChatType.CHAT_TYPE_CHANNEL ? reader.ReadCString() : null;
 
             targetGUIDOther = reader.ReadUInt64();
             messageLength = reader.ReadUInt32();
@@ -102,35 +86,14 @@ namespace GMHelper
 
             PlayerName result = PlayerNameList.Find((PlayerName name) => { return name.GUID == targetGUID; });
 
-            /*PlayerName result = PlayerNameList.Find(
-                delegate(PlayerName playerName)
-                {
-                    return playerName.GUID == targetGUID;
-                });*/
-
-            if (type == ChatType.CHAT_TYPE_SYSTEM)
+            var args = new ChatArgs
             {
-                foreach (string syntax in message.Split('\n'))
-                    if (!CmdList.Contains(syntax)) // Prevent double message
-                        CmdList.Add(syntax);
-            }
- 
-            if (result != null)
-            {
-                QueryChatMessage.Type = type;
-                QueryChatMessage.Message = message;
-                QueryChatMessage.Name = result.Name;
-                if (channelName != null)
-                    QueryChatMessage.ChannelName = channelName;
-                ReceiveMsg = QueryChatMessage;
-            }
-            else
-            {
-                QueryChatMessage.Type = type;
-                QueryChatMessage.Message = message;
-                if (channelName != null)
-                    QueryChatMessage.ChannelName = channelName;
-            }
+                Type = type,
+                Message = message,
+                ChannelName = channelName != null ? channelName : string.Empty,
+                Name = result != null ? result.Name : string.Empty
+            };
+            OnChatMessage?.Invoke(null, args);
 
             if (targetGUID > 0)
             {

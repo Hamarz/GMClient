@@ -269,10 +269,6 @@ namespace GMHelper
                         AuthenticationCrypto.Decrypt(Buffer, 1, Buffer.Length - 1);
                         ServerHeader header = new ServerHeader(Buffer);
 
-                        if (header.Opcode == Opcodes.SMSG_GM_MESSAGECHAT || header.Opcode == Opcodes.SMSG_MESSAGECHAT)
-                            Debug.WriteLine(header.Opcode);
-
-
                         if (header.Size > 0)
                         {
                             index = 0;

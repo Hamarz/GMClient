@@ -17,10 +17,9 @@ namespace GMHelper
 
     public partial class WorldServer
     {
-        public event EventHandler<ChatArgs> OnServerChatMessage;
         public event EventHandler<ChatArgs> OnChatMessage;
-        public event EventHandler<ChatArgs> OnSystemChatMessage;
-        public event EventHandler<ChatArgs> OnWisperMessage;
+        //public event EventHandler<ChatArgs> OnSystemChatMessage;
+        //public event EventHandler<ChatArgs> OnWisperMessage;
 
     }
 }

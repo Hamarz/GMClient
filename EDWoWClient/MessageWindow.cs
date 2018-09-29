@@ -36,33 +36,35 @@ namespace EDWoWClient
 {
     public partial class MessageWindow : Form
     {
-        public delegate void AddTextToControl(string value);
+        public delegate void AddTextToControl(TextBoxBase control, string value);
         public AddTextToControl MyDelegate;
 
         public MessageWindow()
         {
             InitializeComponent();
-            WorldMgr.Server.OnServerChatMessage += Server_OnServerChatMessage;
+            WorldMgr.Server.OnChatMessage += Server_OnServerChatMessage;
             MyDelegate = new AddTextToControl(AddTextToControlMethod);
         }
 
-        private void AddTextToControlMethod(string text)
+        private void AddTextToControlMethod(TextBoxBase control, string text)
         {
-            richTextBoxReceiveSay.AppendText($"{text}\n");
+            control.AppendText($"{text}\n");
         }
+
         private void Server_OnServerChatMessage(object sender, ChatArgs e)
         {
+            TextBoxBase control = richTextBoxReceiveSay; // Lets assume that is the case
+            switch(e.Type)
+            {
+                case ChatType.CHAT_TYPE_YELL:
+                    control = richTextBoxReceiveYell;
+                    break;
+                case ChatType.CHAT_TYPE_SYSTEM:
+                    control = richTextBoxReceiveSystemMsg;
+                    break;
+            }
 
-            /*Debug.WriteLine($"{e.Type.ToString()}");
-            if (e.Type == ChatType.CHAT_TYPE_SYSTEM)
-                return;
-
-            this.Invoke(new Action((s, et) => { }));
-
-            Debug.WriteLine($"{e.Name} : {e.Message}");*/
-
-            this.Invoke(MyDelegate, $"{e.Name}: {e.Message}");
-
+            Invoke(MyDelegate, new object[] { control, $"{e.Name}: {e.Message}" });
         }
 
         private void richTextBoxSendSay_KeyDown(object sender, KeyEventArgs e)
