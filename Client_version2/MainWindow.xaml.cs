@@ -35,17 +35,17 @@ namespace Client_version2
 
         private void Page_Presenter_ContentRendered(object sender, EventArgs e)
         {
-            Debug.WriteLine("How is this triggered?");
+
         }
 
         private void Page_Presenter_ManipulationStarting(object sender, ManipulationStartingEventArgs e)
         {
-            Debug.WriteLine("WOOOAH, SOMEONE IS MESSING WITH ME!");
+
         }
 
         private void Page_Presenter_Navigating(object sender, NavigatingCancelEventArgs e)
         {
-            Debug.WriteLine("WOOOAH, SOMEONE IS NAVIGATING WITH ME!");
+
         }
     }
 }
