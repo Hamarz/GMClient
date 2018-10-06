@@ -1,0 +1,18 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Client_version2.Styles">
+
+
+    <Color x:Key="DarkBackground">#1d222c</Color>
+    <SolidColorBrush x:Key="DarkBackgroundBrush" Color="{StaticResource DarkBackground}" />
+
+    <Color x:Key="TextBoxBgColor">#06111c</Color>
+    <SolidColorBrush x:Key="TextBoxBackground" Color="{StaticResource TextBoxBgColor}" />
+
+    <Color x:Key="Dark-Border">#505050</Color>
+    <SolidColorBrush x:Key="DarkBorder" Color="{StaticResource Dark-Border}" />
+
+    <Color x:Key="TextboxFocus">#037db6</Color>
+    <SolidColorBrush x:Key="TextBoxFocusBrush" Color="{StaticResource TextboxFocus}" />
+    
+</ResourceDictionary>

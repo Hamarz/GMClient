@@ -1,0 +1,28 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:Client_version2.Styles">
+
+    <FontFamily x:Key="Blizzard">pack://application;,,,/Resources/Fonts/#blizzard</FontFamily>
+
+    <Style TargetType="{x:Type Control}" x:Key="BaseStyle">
+        <Setter Property="FontFamily" Value="{StaticResource Blizzard}" />
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" x:Key="BaseTextBlockStyle">
+        <Setter Property="FontFamily" Value="{StaticResource Blizzard}" />
+    </Style>
+
+    <Style TargetType="{x:Type TextBox}" x:Key="BaseTextBoxStyle">
+        <Setter Property="FontFamily" Value="{StaticResource Blizzard}" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}" x:Key="BaseButton">
+        <Setter Property="FontFamily" Value="{StaticResource Blizzard}" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource BaseButton}" />
+    <Style TargetType="{x:Type Label}" BasedOn="{StaticResource Blizzard}" />
+    <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource BaseTextBoxStyle}" />
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}" />
+    <Style TargetType="{x:Type ListView}" BasedOn="{StaticResource Blizzard}" />
+</ResourceDictionary>
